@@ -1,0 +1,20 @@
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: "docker-postgres-user"
+    container_name: ${PG_CONTAINER_NAME}
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGDATA: ${PG_DATA}
+    volumes:
+      - ${POSTGRES_DB}:${PG_DATA}
+    ports:
+      - "5433:5432"
+    restart: unless-stopped
+volumes:
+  dbuser:
+    external: true
